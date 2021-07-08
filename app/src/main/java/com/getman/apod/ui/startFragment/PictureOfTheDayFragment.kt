@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -31,12 +32,13 @@ class PictureOfTheDayFragment : Fragment(R.layout.apod_fragment) {
             is PictureOfTheDayData.Success -> {
                 val serverResponseData = data.serverResponseData
                 val url = serverResponseData.url
-
+                val explanation = serverResponseData.explanation
                 if (url.isNullOrEmpty()) {
                     //showError("Сообщение, что ссылка пустая")
                     toast("Link is empty")
                 } else {
                     view?.findViewById<ImageView>(R.id.image_view)?.load(url)
+                    view?.findViewById<TextView>(R.id.explanation)?.text = explanation
                 }
             }
         }
